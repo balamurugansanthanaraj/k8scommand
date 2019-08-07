@@ -1,0 +1,338 @@
+    1  ifconfig -a |more
+    2  exit
+    3  yum -y update
+    4  init 6
+    5  yum install docker
+    6  um-config-manager     --add-repo     https://download.docker.com/linux/centos/docker-ce.repo
+    7  yum-config-manager     --add-repo     https://download.docker.com/linux/centos/docker-ce.repo
+    8  yum install docker-ce docker-ce-cli containerd.io
+    9  systemctl enable docker
+   10  systemctl start docker
+   11  docker --version
+   12  systemctl status docker
+   13  docker info
+   14  docker
+   15  clear
+   16  docker run debian echo "Hello World"
+   17  docker container ls
+   18  docker container ls -a
+   19  docker run -i -t debian /bin/bash
+   20  docker run -h container -i -t debian /bin/bash
+   21  clear
+   22  docker run -it --name cowsay --hostname cowsay debian bash
+   23  docekr commit cowsay test/cowsayimage
+   24  docker commit cowsay test/cowsayimage
+   25  docker images
+   26  docker run test/cowsayimage /usr/games/cowsay "Ho"
+   27  history
+   28  mkdir cowsay
+   29  cd cowsay/
+   30  touch Dockerfile
+   31  cd ..
+   32  mkdir app2
+   33  cd app2
+   34  ls
+   35  touch Dockerfile
+   36  vi Dockerfile 
+   37  cat Dockerfile 
+   38  docker build -t test/cowsay-dockerfile .
+   39  docker images
+   40  docker run test/cowsay-dockerfile /usr/games/cowsay "Mo"
+   41  vi Dockerfile 
+   42  docker build -t test/cowsay-dockerfile .
+   43  docker run test/cowsay-dockerfile "Mo"
+   44  docker run test/cowsay-dockerfile 
+   45  vi entrypoint.sh
+   46  ls
+   47  ls -l
+   48  chmod +x entrypoint.sh 
+   49  ls -l
+   50  vi Dockerfile 
+   51  docker build -t test/cowsay-dockerfile .
+   52  cat Dockerfile 
+   53  docker run test/cowsay-dockerfile
+   54  cat Dockerfile 
+   55  vi Dockerfile 
+   56  docker build -t test/cowsay-dockerfile .
+   57  vi Dockerfile 
+   58  vi entrypoint.sh 
+   59  docker container ls -a
+   60  docker rm 33f0a f66e9 18ffe 6e6 d4a7 2d83 30a5 56b0 507
+   61  docker container ls -a
+   62  docker images
+   63  docker rmi ac9b
+   64  docker container run --publish 80:80 nginx
+   65  docker container ls
+   66  docker container run --publish 80:80 --detach nginx
+   67  docker container ls
+   68  docker container stop 2e8
+   69  docker container start 2e8
+   70  docker container ls
+   71  docker stop 2e6
+   72  docker stop 2e8
+   73  docker container run --publish 80:80 --detach --name webhost nginx
+   74  docker container ls
+   75  docker container top webhost
+   76  curl localhost
+   77  docker container top webhost
+   78  top
+   79  docker container top webhost
+   80  docker run --name mongo -d mongo
+   81  docker ps
+   82  docker top mongo
+   83  ps aux
+   84  ps aux | grep mongo
+   85  docker container run -d -p 3306:3306 --name db -e MYSQL_RANDOM_ROOT_PASSWORD=yes mysql
+   86  docker container ls
+   87  docker container log db
+   88  docker container logs db
+   89  docker container run -d --name webserver -p 8080:8080 httpd
+   90  docker container ls
+   91  docker container stat
+   92  docker container stats
+   93  clear
+   94  ip a
+   95  docker network
+   96  docker network ls
+   97  docker network inspect bridge
+   98  docker network create my_app_net
+   99  docker network ls
+  100  docker network inspect my_app_net
+  101  docker network ls
+  102  docker container run -d --name new_nginx --network my_app_net nginx
+  103  docker network inspect my_app_net
+  104  docker container ls
+  105  docker network connect
+  106  docker network ls
+  107  docker network connect 2918137f719c cfdc2b50f390
+  108  docker container ls
+  109  docker container inspect cfdc2b50f390
+  110  docker container ls
+  111  docker rm 5e95 c93ff 64b0 cfdc 6328
+  112  docker rm 5e95 c93ff 64b0 cfdc 6328 --force
+  113  history
+  114  docker container run -it nginx bash
+  115  docker container ls
+  116  docker container ls -a
+  117  docker commit 
+  118  docker commit 27a1cd67395527a1cd673955 test/nginxping
+  119  docker commit 27a1cd673955 test/nginxping
+  120  docker images
+  121  docker container run -d --name my_nginx --network my_app_net test/nginxping
+  122  dockr ls
+  123  docker ps
+  124  docker images
+  125  history
+  126  docker container run --publish 80:80 --detach --name webhost test/nginxping
+  127  docker container ls
+  128  docker container ls -a
+  129  docker rm 17ed de7 27a 2e8e 2fea --force
+  130  docker container run --publish 80:80 --detach --name webhost test/nginxping
+  131  docker ps
+  132  docker ps -a
+  133  docker start 0adb
+  134  docker ps -a
+  135  history
+  136  docker container run -d --name my_nginx --network my_app_net test/nginxping
+  137  docker container run -d --name webhost1 --network my_app_net test/nginxping
+  138  docker ps
+  139  docker ps -a
+  140  docker start b783 4d01
+  141  docker ps
+  142  docker rm b783 4d01b 0adb
+  143  docker container run -p 80:80 --name webhost -d test/nginxping
+  144  docker ps
+  145  docker ps -a
+  146  docker start 00f
+  147  docker ps
+  148  docker container run -p 80:80 --name webhost -d nginx
+  149  docker ps -a
+  150  docker rm 00f
+  151  docker container run -p 80:80 --name webhost -d nginx
+  152  docker ps
+  153  docker container port webhost
+  154  docker container inspect --format '{{.NetworkSettings.IPAddress}}' webhost
+  155  docker container inspect webhost | more
+  156  docker container port webhost
+  157  docker container inspect webhost | more
+  158  cd /var/lib/docker
+  159  ls
+  160  cd containers/
+  161  ls
+  162  cd 460c7d9794e8327f7c4f6c0b10a0482d54b55a04e75ef0c91d3c7e20a9f5c51b/
+  163  ls
+  164  cd ..
+  165  docker container run -p 80:80 --name my_nginx -d nginx
+  166  docker container run -p 80:81 --name my_nginx -d nginx
+  167  docker container run -p 81:80 --name my_nginx -d nginx
+  168  docker container run -p 81:80 --name my_nginx2 -d nginx
+  169  docker container ls
+  170  docker container exec -it webhost ping my_nginx2
+  171  clear
+  172  docker network create dude
+  173  docker container run -d --net dude --net-alias search elasticsearch:2
+  174  docker container ls
+  175  docker container run --rm --net dude alpine nslookup search
+  176  docker network ls
+  177  docker network inspect dude
+  178  docker network ls
+  179  docker inspect bridge
+  180  docker network ls
+  181  ip a
+  182  docker container run --rm --net dude centos curl -s search:9200
+  183  history
+  184  docker container run --rm --net dude alpine nslookup search
+  185  docker container ls
+  186  docker container run --rm --net dude alpine nslookup search
+  187  docker container run --rm --net dude centos curl -s search:9200
+  188  docker pull mysql
+  189  docker image inspect mysql
+  190  docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True mysql
+  191  docker container ls
+  192  docker container inspect mysql
+  193  cd /var/lib/docker
+  194  ls
+  195  cd volumes/
+  196  ls
+  197  cd 34069975d20385bfd3106cf1edfb70401e4b742ddcae72a5c82d84d2becae9e7/
+  198  ls
+  199  cd _data/
+  200  ls
+  201  pwd
+  202  docker volume ls
+  203  docker volume inspect 34069975d20385bfd3106cf1edfb70401e4b742ddcae72a5c82d84d2becae9e7 
+  204  docker container ls
+  205  docker rm 969c d604 e07e a9b0 460c --force
+  206  docker volume ls
+  207  docker volume
+  208  docker volume prune
+  209  docker volume ls
+  210  docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -v mysql-db:/var/lib/mysql mysql
+  211  docker volume ls
+  212  docker container run -d --name mysql1 -e MYSQL_ALLOW_EMPTY_PASSWORD=True -v mysql-db:/var/lib/mysql mysql
+  213  docker volume ls
+  214  docker volume inspect mysql-db 
+  215  cd /var/lib/docker/volumes/mysql-db/
+  216  ls
+  217  cd _data/
+  218  ls
+  219  cd mysql/
+  220  ls
+  221  cd ..
+  222  cd \#innodb_temp/
+  223  ls
+  224  cd ..
+  225  history
+  226  clear
+  227  docker info
+  228  docker swarm init
+  229  docker node ls
+  230  systemctl firewalld status
+  231  systemctl stop firewalld
+  232  systemctl disable firewalld
+  233  systemctl status firewalld
+  234  docker node ls
+  235  docker swarm --help
+  236  docker node ls
+  237  docker service create alpine ping 8.8.8.8
+  238  docker service ls
+  239  docker service ps lucid_grothendieck
+  240  docker container ls
+  241  docker service update zbal4641ml11 --replicas 3
+  242  docker service ps lucid_grothendieck
+  243  docker service ls
+  244  docker service ps 
+  245  docker service ls
+  246  docker container ls
+  247  docker service ls
+  248  docker service ps lucid_grothendieck
+  249  docker container rm lucid_grothendieck.1 --force
+  250  docker service ps lucid_grothendieck
+  251  docker service ls
+  252  docker service ps lucid_grothendieck
+  253  docker service rm lucid_grothendieck
+  254  docker service ls
+  255  docker network create --driver overlay mydrupal
+  256  docker network ls
+  257  docker service create --name pssql --network mydrupal -e POSTGRES_PASSWORD=mypass postgres
+  258  docker service ls
+  259  docker service ps psql
+  260  docker service ps pssql
+  261  docker container logs pssql.1.lp8bazx139lk
+  262  docker container logs pssql
+  263  docker container logs pssql.1
+  264  docker container ls
+  265  docker container logs  pssql.1.lp8bazx139lkybzykw8iu78jl
+  266  docker service create --name drupal --network mydrupal -p 80:80 drupal
+  267  docker service ls
+  268  docker network ls
+  269  watch docker service ls
+  270  ip a
+  271  docker container ls
+  272  watch docker service ls
+  273  docker network ls
+  274  docker network inspect mydrupal
+  275  docker container ls
+  276  docker service ls
+  277  docker service ps
+  278  docker service ls
+  279  docker service drupal
+  280  docker service inspect drupal
+  281  docker container ls
+  282  docker service ls
+  283  watch docker service ls
+  284  history
+  285  docker service ps drupal
+  286  docker container ls
+  287  docker network ls
+  288  docker inspect network docker_gwbridge
+  289  docker network ls
+  290  docker network inspect ingress
+  291  docker network ls
+  292  docker network inspect mydrupal
+  293  docker network create --driver overlay my-network
+  294  docker network inspect my-network
+  295  docker service create --name my-web --network my-network nginx
+  296  curl localhost
+  297  watch docker service
+  298  watch docker service ls
+  299  docker service ps
+  300  docker service ps my-web
+  301  hostnamectl set-hostname k8smaster
+  302  reboot
+  303  yum update
+  304  ip a
+  305  curl localhost
+  306  docker container ls
+  307  vi /etc/hosts
+  308  cat /etc/hosts
+  309  vi /etc/hosts
+  310  ping k8sslave1
+  311  kubeadm init
+  312  swapoff -a
+  313  vi /etc/fstab 
+  314  kubeadm init
+  315  mkdir -p $HOME/.kube
+  316  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  317    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  318  kubectl get nodes
+  319  ssh root@k8sslave1
+  320  kubectl get nodes
+  321  kubectl get pods --all-namespace
+  322  kubectl get pods --all-namespaces
+  323  kubectl get nodes
+  324  kubectl get pods --all-namespaces
+  325  kubectl -n kube-system get secret
+  326  kubectl create serviceaccount cluster-admin-dashboard-sa
+  327  kubectl create clustterrolebinding cluster-admin-dashboard-sa --clusterrole=cluster-admin --serviceaccount=default:cluster-admin-dashboard-sa
+  328  kubectl create clusterrolebinding cluster-admin-dashboard-sa --clusterrole=cluster-admin --serviceaccount=default:cluster-admin-dashboard-sa
+  329  kubectl get secret | grep cluster-admin-dashboard-sa
+  330  kubectl describe secret cluster-admin-dashboard-sa-token-g6kgk
+  331  history
+  332  history > 3rdday.txt
+  333  ls
+  334  mkdir k8scommanddddddddd
+  335  mkdir k8sc
+  336  cd k8sc
+  337  ls
+  338  history > 4thday.txt
